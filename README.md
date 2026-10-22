@@ -1,62 +1,71 @@
-# discord-badge-spoofer
+# 🎮 Discord Science Spoofer - Modern UI Edition
 
-inflates your discord profile badges - add hours played and mark games as played.
+![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)
+![CustomTkinter](https://img.shields.io/badge/CustomTkinter-5.2.0-blueviolet?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## join https://discord.gg/solasity for support
+> **Note:** This project is a **Fork** of the original [discord-badge-spoofer](https://github.com/revere-group/discord-badge-spoofer) created by **Revere Group**. 
+> All credit for the core logic, backend, and PowerShell fingerprinting goes to them. This version adds a Graphical User Interface (GUI) and improves the overall user experience.
 
-**how it works:** discord's analytics endpoint (`/api/v9/science`) tracks what games you play and how long you play them. this tool posts the same events the real client does (`launch_game` and `running_game_heartbeat`), but with custom hours and game lists. discord accepts the events (`204`) and they do show up in your badges.
+A powerful, modern Graphical User Interface (GUI) wrapper for the Discord Science Spoofer. Built with **CustomTkinter**, this tool simulates game launches and heartbeats to Discord's science endpoint, allowing you to inflate your **Games Played** and **Hours Played** badges.
 
-**status:** verified working and currently unpatched. badges take 1-2 days to update, so don't expect results right away. your token and cookie are stored locally only - nothing leaves your machine. this may break at any time if discord patches the endpoint.
+---
 
-**important:** this violates discord's tos. use it on accounts you're comfortable losing.
+## ✨ Features (UI & Core)
 
-## setup
+* 🎨 **Modern Discord-Style UI**: A fully responsive, dark-themed interface inspired by Discord's native design. It dynamically adapts to any window size (with a minimum size lock to prevent UI overlapping).
+* 🧵 **Non-Blocking Threading**: All network requests, game loading, and spoofing processes run in the background, ensuring the UI never freezes or hangs.
+* 📁 **File Picker Integration**: Generate executable fingerprints directly from the UI using a built-in file browser to easily select your `.exe` files.
+* 🖥️ **Built-in Console**: Watch the logs in real-time directly within the app—no need to keep the terminal open.
+* ⚡ **Batch Processing**: Sends events in chunks (50 games per request) to avoid rate limits and ensure a smooth experience.
+* 🔐 **State Management**: Automatically saves and loads your Token, Cookie, and Fingerprint securely in `science_state.json`.
+* 🔗 **Quick Links**: Auto-opens the GitHub repository on startup to encourage starring, and includes a "Contact Me" button.
 
-no dependencies - pure python stdlib (needs python 3.10+).
+---
 
-1. run it:
-   ```
-   python spoofer.py
-   ```
+## 📦 Prerequisites
 
-2. first run asks for your discord account token. paste it and it gets saved to `science_state.json` (reused after that). the analytics token is fetched automatically from `GET /users/@me?with_analytics_token=true`.
+Before running the application, ensure you have Python installed (3.10 or newer is recommended) and install the required dependency:
 
-3. you also need a cookie (`cf_clearance`). on startup it'll ask for one, or you can add/update it later via option `3` (refresh auth). grab the full `cookie` header from any `/science` request in devtools (network tab). it gets saved to `science_state.json`.
-
-5. **optional: fingerprint for games-played count.** the fingerprint isn't strictly necessary - users have reported getting the games-played badge without setting one. if you want to set it, grab a real `executable_fingerprint` from a `launch_game` request in your client's devtools and add it to `science_state.json` as `"fingerprint": "..."`.
-
-## menu
-
-- `1` claim playtime - asks for hours per game, applies to every game
-- `2` games played - marks every game as played (1 minute each)
-- `3` refresh auth - pulls a fresh analytics token and lets you update the cookie
-- `4` exit
-
-## how auth works
-
-- `token` - your account token, entered on first run, saved to `science_state.json`
-- `analytics_token` - fetched from `GET /users/@me?with_analytics_token=true`
-- `super_props` / heartbeat / launch ids - generated automatically
-- `cookie` (cf_clearance) - pasted by hand, via option `3`
-- `fingerprint` - optional, only needed for the games-played count (see below)
-
-badges update on discord's analytics cycle (1-2 days), so don't expect to see results right away.
-
-## about the fingerprint
-
-hours work with just your token and cookie. the games-played count might need a real `executable_fingerprint` - we're not 100% sure yet. users have reported getting badges without one, so try it first. if it doesn't work after a few days, grab a real `executable_fingerprint` from a `launch_game` request in your client's devtools and add it to `science_state.json`:
-
-```json
-{ "fingerprint": "Ab5ekw..." }
+```bash
+pip install customtkinter
 ```
 
-either way, the tool will post the events - we just want feedback on whether the badges move with or without the fingerprint so we can figure out what's actually required.
+---
 
-## disclaimer
+## 🚀 Usage
 
-this breaks discord's terms of service. use it on accounts you're fine losing.
-provided as-is with no warranty.
+1. Clone the repository or download the source code.
+2. Open your terminal in the project folder.
+3. Run the main script:
+   ```bash
+   python spoofer.py
+   ```
+4. **In the UI:**
+   * Paste your Discord **Account Token** and **cf_clearance Cookie**.
+   * *(Optional but recommended)* Select a game's `.exe` file and click **Generate Fingerprint**.
+   * Enter the number of games and hours per game.
+   * Click **START SPOOFING** and watch the logs!
 
-## license
+---
 
-released under the mit license. see [LICENSE](LICENSE).
+## 🏆 Credits & Ownership
+
+This project is the result of combining powerful core logic with a modern user interface.
+
+| Role | Author / Project |
+| :--- | :--- |
+| **Core Logic & Backend (Original)** | [Revere Group](https://github.com/revere-group) |
+| **GUI Design & Frontend** | **Bisho (BOSHRASAMUEL)** |
+
+### Ownership Notes:
+* **The Backend / Core Logic**: The original Python script (`spoofer.py`), API request structures, fingerprint generation (PowerShell), and Discord bypass logic belong to **Revere Group** under the MIT License.
+* **The GUI / Frontend**: The CustomTkinter graphical interface, thread management, console redirection, responsive layout, user experience design, and additional features were developed and integrated by **Bisho**.
+* *If you are the original author and wish for this UI adaptation to be taken down, please contact me.*
+
+---
+
+## ⚠️ Disclaimer
+
+**This tool is for educational purposes only.** 
+Using this script violates Discord's Terms of Service (ToS). Spoofing badges may result in account termination or a permanent ban. The developer of this UI takes no responsibility for any actions taken against your account. **Use this at your own risk.**
