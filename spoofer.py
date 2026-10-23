@@ -514,7 +514,7 @@ class DiscordSpooferUI(ctk.CTk):
         threading.Thread(target=self.load_games_async, daemon=True).start()
         
         # فتح رابط الـ GitHub تلقائياً عند بدء البرنامج (بعد ثانية عشان الواجهة تفتح الأول)
-        self.after(1000, lambda: webbrowser.open("https://github.com/BOSHRASAMUEL/max-dis-badges"))
+        self.after(1000, lambda: webbrowser.open("https://github.com/BOSHRASAMUEL/discord-badge-spoofer"))
 
     def setup_sidebar(self):
         self.sidebar = ctk.CTkFrame(self, corner_radius=0, fg_color=DISCORD_SIDEBAR)
